@@ -17,16 +17,16 @@ export async function POST(req, resp) {
     let { name, email, password } = output
     let isemail = await userModel.findOne({ email })
     if (isemail) {
-      return NextResponse.json({ status: 200, message: 'user already exist' })
+      return NextResponse.json({ status: 400, errors:{email :'user already exist' }})
     }
     let salt = await bycriptjs.genSalt(10)
     let hashpassword = await bycriptjs.hash(password, salt)
     let user = new userModel({ name, email, password: hashpassword })
     await user.save()
-    return NextResponse.json({ success: true, user })
+    return NextResponse.json({ status:200,success: true,message:'user register successfully', user })
   } catch (error) {
     if (error instanceof errors.E_VALIDATION_ERROR) {
-      return NextResponse.json({ success: false, errors: error.messages })
+      return NextResponse.json({ status:400,success: false, errors: error.messages })
     }
   }
 }
