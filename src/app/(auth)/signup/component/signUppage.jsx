@@ -1,8 +1,10 @@
 'use client'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 function SignUppage() {
+  let router=useRouter()
     let [user,setUser]=useState({
          name:'',
          email:'',
@@ -19,7 +21,7 @@ function SignUppage() {
         setErrors({...error,[e.target.name]:''})
     }
 
-    console.log(error)
+    
 
 
 
@@ -30,9 +32,9 @@ function SignUppage() {
           setLoading(false)
           let response=resp.data
           
-          console.log(response);
+         
           if(response.status===200){
-            console.log('user register successfully')
+            router.push(`/login?message=${response.message}`)
             setUser({
               name:'',
               email:'',

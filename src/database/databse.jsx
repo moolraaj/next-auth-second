@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export const DbConnect=async()=>{
-    await mongoose.connect(process.env.NEXT_PUBLIC_MONGOURL)
+    await mongoose.connect(process.env.MONGODB_URL)
     let connection=mongoose.connection
     connection.on('connected',()=>{
         console.log('database connected successfully')

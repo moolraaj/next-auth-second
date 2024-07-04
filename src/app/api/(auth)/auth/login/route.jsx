@@ -19,8 +19,11 @@ export async function POST(req) {
 
     if (!email || !password) {
       return NextResponse.json({
-        status: 404,
-        message: 'Credentials are required',
+        status: 400,
+        errors:{
+
+          message: 'Credentials are required',
+        }
       });
     }
 
@@ -29,15 +32,21 @@ export async function POST(req) {
     if (!user) {
       return NextResponse.json({
         status: 404,
-        message: 'Credentials are required',
+        errors:{
+
+          email: 'Credentials are required',
+        }
       });
     }
 
     let checkedPass = await bcryptjs.compare(password, user.password);
     if (!checkedPass) {
       return NextResponse.json({
-        status: 404,
-        message: 'Credentials are required',
+        status: 400,
+        errors:{
+
+          password: 'Credentials are required',
+        }
       });
     }
     
@@ -51,7 +60,7 @@ export async function POST(req) {
     });
   } catch (error) {
     if (error instanceof errors.E_VALIDATION_ERROR) {
-      return NextResponse.json({ success: false, errors: error.messages });
+      return NextResponse.json({ status:400,success: false, errors: error.messages });
     }
   }
 }
