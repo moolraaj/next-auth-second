@@ -2,11 +2,28 @@ import { DbConnect } from '@/database/databse'
 import userModel from '@/model/usermodel'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GitHubProvider from 'next-auth/providers/github'
-
+ 
 
 
 
 export const authOptions = {
+
+
+  callbacks: {
+    async jwt({ token, user }) {
+      if(user){
+        user.role=user.role==null?'user':user.role
+        token.user=user
+      }
+      return token
+    },
+  
+    async session({ session, token }) {
+      session.user=token.user
+      return session
+    },
+
+},
  
   providers: [
     CredentialsProvider({
