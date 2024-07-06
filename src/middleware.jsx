@@ -27,7 +27,7 @@ export default async function middleware(request) {
 
   // If user.role is user and wants to access the admin route, redirect to the /signin page
   if (adminPrivateRoutes.includes(pathname) && user?.role === 'user') {
-    return NextResponse.redirect(new URL('/signin', request.url))
+    return NextResponse.redirect(new URL('/', request.url))
   }
 
   // If user.role is admin and wants to access the user route, redirect to the /login page

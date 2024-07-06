@@ -67,6 +67,14 @@ function LoginPage() {
     })
   }
 
+  // signin with google
+  const loginHubSignin=()=>{
+    signIn('google',{
+      callbackUrl:'/',
+      redirect:true
+    })
+  }
+
 
 
 
@@ -89,6 +97,7 @@ function LoginPage() {
         </div>
 
         <button onClick={gitHubSignin}>login with github</button>
+        <button onClick={loginHubSignin}>login with google</button>
       </div>
     </>
   )
