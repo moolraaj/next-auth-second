@@ -9,7 +9,7 @@ export default async function middleware(request) {
   let token = await getToken({ req: request });
   let userPrivateRoutes = ['/'];
   let adminPrivateRoutes = ['/dashboard'];
-  let publicRoutes = ['/', '/login','/signup','/signin']
+  let publicRoutes = ['/login','/signup','/signin']
 
   // If user or admin is logged in, they should not access login, register, or signup pages
   if (token && publicRoutes.includes(pathname)) {
